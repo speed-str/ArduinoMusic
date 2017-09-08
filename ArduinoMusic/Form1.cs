@@ -15,6 +15,7 @@ namespace ArduinoMusic
     public partial class Form1 : Form
     {
         byte[] HexBytes;
+        string[] ports;
         public Form1()
         {
             InitializeComponent();
@@ -39,25 +40,31 @@ namespace ArduinoMusic
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string[] ports = SerialPort.GetPortNames();
-            string[] baud = { "4800", "9600", "19200", "38400", "57600", "115200", "230400" , "250000" };
+            ports = SerialPort.GetPortNames();
             cmbPorts.Items.AddRange(ports);
-            cmbBaud.Items.AddRange(baud);
-            cmbPorts.SelectedIndex = 0;
-            cmbBaud.SelectedIndex = 0;
+            if (ports.Length != 0)
+            {
+                cmbPorts.SelectedIndex = 0;
+                string[] baud = { "4800", "9600", "19200", "38400", "57600", "115200", "230400", "250000" };
+                cmbBaud.Items.AddRange(baud);
+                cmbBaud.SelectedIndex = 0;
+            }
             btnSend.Enabled = false;
 
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            btnOpen.Enabled = false;
             try
             {
-                serialPort1.PortName = cmbPorts.Text;
-                serialPort1.BaudRate = Convert.ToInt32(cmbBaud.Text);
-                serialPort1.Open();
-                btnSend.Enabled = true;
+                if (ports.Length != 0)
+                {
+                    btnOpen.Enabled = false;
+                    serialPort1.PortName = cmbPorts.Text;
+                    serialPort1.BaudRate = Convert.ToInt32(cmbBaud.Text);
+                    serialPort1.Open();
+                    btnSend.Enabled = true;
+                }
             }
             catch (Exception)
             {

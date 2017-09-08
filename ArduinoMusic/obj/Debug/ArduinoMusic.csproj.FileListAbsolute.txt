@@ -10,3 +10,12 @@ C:\Users\CROSS-AMD\Desktop\Shared\Visual Studio Projects\ArduinoMusic\ArduinoMus
 C:\Users\aamir\Desktop\Visual Studio Projects\ArduinoMusic\ArduinoMusic\bin\Debug\ArduinoMusic.exe.config
 C:\Users\aamir\Desktop\Visual Studio Projects\ArduinoMusic\ArduinoMusic\obj\Debug\ArduinoMusic.exe
 C:\Users\aamir\Desktop\Visual Studio Projects\ArduinoMusic\ArduinoMusic\obj\Debug\ArduinoMusic.pdb
+C:\Users\aamir\Documents\GitHub\ArduinoMusic\ArduinoMusic\bin\Debug\ArduinoMusic.exe.config
+C:\Users\aamir\Documents\GitHub\ArduinoMusic\ArduinoMusic\obj\Debug\ArduinoMusic.exe
+C:\Users\aamir\Documents\GitHub\ArduinoMusic\ArduinoMusic\obj\Debug\ArduinoMusic.pdb
+C:\Users\aamir\Documents\GitHub\ArduinoMusic\ArduinoMusic\bin\Debug\ArduinoMusic.exe
+C:\Users\aamir\Documents\GitHub\ArduinoMusic\ArduinoMusic\bin\Debug\ArduinoMusic.pdb
+C:\Users\aamir\Documents\GitHub\ArduinoMusic\ArduinoMusic\obj\Debug\ArduinoMusic.csprojResolveAssemblyReference.cache
+C:\Users\aamir\Documents\GitHub\ArduinoMusic\ArduinoMusic\obj\Debug\ArduinoMusic.Form1.resources
+C:\Users\aamir\Documents\GitHub\ArduinoMusic\ArduinoMusic\obj\Debug\ArduinoMusic.Properties.Resources.resources
+C:\Users\aamir\Documents\GitHub\ArduinoMusic\ArduinoMusic\obj\Debug\ArduinoMusic.csproj.GenerateResource.Cache
