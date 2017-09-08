@@ -17,7 +17,7 @@ void loop() {
                 // Only for debug. say what you got:
                 //Serial.print("I received: ");
                 //Serial.println(incomingByte);
-                PORTD = byte(incomingByte);
+                PORTD = incomingByte;
          }
     }
 }
