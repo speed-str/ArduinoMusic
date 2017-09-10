@@ -17,7 +17,7 @@ namespace ArduinoMusic
         byte[] HexBytes;
         string[] ports;
         public delegate void AddDataDelegate(string serialinput);
-        public AddDataDelegate myDelegate;
+        public AddDataDelegate SerialDelegate;
 
         public Form1()
         {
@@ -26,7 +26,7 @@ namespace ArduinoMusic
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.myDelegate = new AddDataDelegate(AddDataMethod);
+            SerialDelegate = new AddDataDelegate(AddDataMethod);
             ports = SerialPort.GetPortNames();
             cmbPorts.Items.AddRange(ports);
             if (ports.Length != 0)
@@ -127,7 +127,7 @@ namespace ArduinoMusic
         {
             SerialPort sp = (SerialPort)sender;
             string s = sp.ReadExisting();
-            txtboxReceive.Invoke(this.myDelegate, new Object[] { s });
+            txtboxReceive.Invoke(SerialDelegate, new Object[] { s });
         }
     }
 }
