@@ -16,9 +16,35 @@ namespace ArduinoMusic
     {
         byte[] HexBytes;
         string[] ports;
+        public delegate void AddDataDelegate(string serialinput);
+        public AddDataDelegate myDelegate;
+
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.myDelegate = new AddDataDelegate(AddDataMethod);
+            ports = SerialPort.GetPortNames();
+            cmbPorts.Items.AddRange(ports);
+            if (ports.Length != 0)
+            {
+                cmbPorts.SelectedIndex = 0;
+                string[] baud = { "4800", "9600", "19200", "38400", "57600", "115200", "230400", "250000" };
+                cmbBaud.Items.AddRange(baud);
+                cmbBaud.SelectedIndex = 1;
+                serialPort1.DataReceived += new SerialDataReceivedEventHandler(serialPort1_DataReceived);
+            }
+            btnSend.Enabled = false;
+            btnClose.Enabled = false;
+
+        }
+
+        public void AddDataMethod(string serialinput)
+        {
+            txtboxReceive.AppendText(serialinput);
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -27,30 +53,6 @@ namespace ArduinoMusic
             {
                 serialPort1.Write(HexBytes, 0, HexBytes.Length);
             }
-        }
-
-        private void btnReceive_Click(object sender, EventArgs e)
-        {
-            if (serialPort1.IsOpen == true)
-            {
-                string msg = serialPort1.ReadExisting();
-                MessageBox.Show(msg);
-            }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            ports = SerialPort.GetPortNames();
-            cmbPorts.Items.AddRange(ports);
-            if (ports.Length != 0)
-            {
-                cmbPorts.SelectedIndex = 0;
-                string[] baud = { "4800", "9600", "19200", "38400", "57600", "115200", "230400", "250000" };
-                cmbBaud.Items.AddRange(baud);
-                cmbBaud.SelectedIndex = 0;
-            }
-            btnSend.Enabled = false;
-
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -64,11 +66,21 @@ namespace ArduinoMusic
                     serialPort1.BaudRate = Convert.ToInt32(cmbBaud.Text);
                     serialPort1.Open();
                     btnSend.Enabled = true;
+                    btnClose.Enabled = true;
                 }
             }
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        private void btnReceive_Click(object sender, EventArgs e)
+        {
+            if (serialPort1.IsOpen == true)
+            {
+                string msg = serialPort1.ReadExisting();
+                MessageBox.Show(msg);
             }
         }
 
@@ -101,6 +113,21 @@ namespace ArduinoMusic
             {
                 serialPort1.Close();
             }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            serialPort1.Close();
+            btnClose.Enabled = false;
+            btnSend.Enabled = false;
+            btnOpen.Enabled = true;
+        }
+
+        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            SerialPort sp = (SerialPort)sender;
+            string s = sp.ReadExisting();
+            txtboxReceive.Invoke(this.myDelegate, new Object[] { s });
         }
     }
 }

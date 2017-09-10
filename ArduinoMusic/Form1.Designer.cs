@@ -37,14 +37,16 @@
             this.cmbPorts = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnImport = new System.Windows.Forms.Button();
-            this.btnReceive = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.txtboxReceive = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnSend
             // 
             this.btnSend.Location = new System.Drawing.Point(28, 71);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(230, 49);
+            this.btnSend.Size = new System.Drawing.Size(289, 49);
             this.btnSend.TabIndex = 0;
             this.btnSend.Text = "Send!";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -69,7 +71,7 @@
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(179, 16);
+            this.btnOpen.Location = new System.Drawing.Point(170, 16);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(79, 23);
             this.btnOpen.TabIndex = 3;
@@ -96,7 +98,7 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(179, 42);
+            this.btnImport.Location = new System.Drawing.Point(170, 42);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(79, 23);
             this.btnImport.TabIndex = 3;
@@ -104,31 +106,54 @@
             this.btnImport.UseVisualStyleBackColor = true;
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
-            // btnReceive
+            // btnClose
             // 
-            this.btnReceive.Location = new System.Drawing.Point(28, 126);
-            this.btnReceive.Name = "btnReceive";
-            this.btnReceive.Size = new System.Drawing.Size(230, 41);
-            this.btnReceive.TabIndex = 0;
-            this.btnReceive.Text = "Receive";
-            this.btnReceive.UseVisualStyleBackColor = true;
-            this.btnReceive.Click += new System.EventHandler(this.btnReceive_Click);
+            this.btnClose.Location = new System.Drawing.Point(255, 16);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(62, 48);
+            this.btnClose.TabIndex = 4;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // txtboxReceive
+            // 
+            this.txtboxReceive.Location = new System.Drawing.Point(28, 140);
+            this.txtboxReceive.Multiline = true;
+            this.txtboxReceive.Name = "txtboxReceive";
+            this.txtboxReceive.ReadOnly = true;
+            this.txtboxReceive.Size = new System.Drawing.Size(289, 91);
+            this.txtboxReceive.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(27, 123);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(82, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Received Data:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(277, 179);
+            this.ClientSize = new System.Drawing.Size(340, 240);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.txtboxReceive);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbPorts);
             this.Controls.Add(this.cmbBaud);
-            this.Controls.Add(this.btnReceive);
             this.Controls.Add(this.btnSend);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Arduino Music";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -146,7 +171,9 @@
         private System.Windows.Forms.ComboBox cmbPorts;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnImport;
-        private System.Windows.Forms.Button btnReceive;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.TextBox txtboxReceive;
+        private System.Windows.Forms.Label label3;
     }
 }
 
