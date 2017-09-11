@@ -1,14 +1,5 @@
 int incomingByte = 0;
 
-#define BUSP1 PD2
-#define BUSP2 PD3
-#define BUSP3 PD4
-#define BUSP4 PD5
-#define BUSP5 PD6
-#define BUSP6 PD7
-#define BUSP7 PB0
-#define BUSP8 PB1
-
 int bitstat1;
 int bitstat2;
 int bitstat3;
@@ -47,6 +38,8 @@ void loop() {
                 // Only for debug. say what you got:
                 //Serial.print("I received: ");
                 //Serial.println(incomingByte);
+                //PORTC = PORTC & 0b11110111; // clear bit 3, leave rest alone. 1 AND x = x, 0 AND x = 0
+                //PORTC = PORT | 0b00001000; // set bit 3, leave rest alone/  0 OR x = x, 1 OR x = 1
 
                 if (bitstat1 == 0x01)
                 {
@@ -54,7 +47,8 @@ void loop() {
                 }
                 else if (bitstat1 == 0)
                 {
-                  PORTD &= ~_BV(BUSP1);
+                  //PORTD &= ~_BV(BUSP1);  //Deprecated
+                  PORTD &= B11111011;
                 }
 
                 if (bitstat2 == 0x02)
@@ -63,7 +57,7 @@ void loop() {
                 }
                 else if (bitstat2 == 0)
                 {
-                  PORTD &= ~_BV(BUSP2);
+                  PORTD &= B11110111;
                 }
 
                 if (bitstat3 == 0x04)
@@ -72,7 +66,7 @@ void loop() {
                 }
                 else if (bitstat3 == 0)
                 {
-                  PORTD &= ~_BV(BUSP3);
+                  PORTD &= B11101111;
                 }
 
                 if (bitstat4 == 0x08)
@@ -81,7 +75,7 @@ void loop() {
                 }
                 else if (bitstat4 == 0)
                 {
-                  PORTD &= ~_BV(BUSP4);
+                  PORTD &= B11011111;
                 }
 
                 if (bitstat5 == 0x10)
@@ -90,7 +84,7 @@ void loop() {
                 }
                 else if (bitstat5 == 0)
                 {
-                  PORTD &= ~_BV(BUSP5);
+                  PORTD &= B10111111;
                 }
 
                 if (bitstat6 == 0x20)
@@ -99,7 +93,7 @@ void loop() {
                 }
                 else if (bitstat6 == 0)
                 {
-                  PORTD &= ~_BV(BUSP6);
+                  PORTD &= B01111111;
                 }
 
                 if (bitstat7 == 0x40)
@@ -108,7 +102,7 @@ void loop() {
                 }
                 else if (bitstat7 == 0)
                 {
-                  PORTB &= ~_BV(BUSP7);
+                  PORTB &= B11111110;
                 }
 
                 if (bitstat8 == 0x80)
@@ -117,7 +111,7 @@ void loop() {
                 }
                 else if (bitstat8 == 0)
                 {
-                  PORTB &= ~_BV(BUSP8);
+                  PORTB &= B11111101;
                 }
          }
     }
