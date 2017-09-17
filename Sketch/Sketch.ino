@@ -14,7 +14,7 @@ void setup() {
   DDRD = DDRD | B11111110;
   DDRB = B00000011;
   // put your setup code here, to run once:
-  Serial.begin(115200);
+  Serial.begin(250000);
   Serial.println("Initialized \n");
 }
 

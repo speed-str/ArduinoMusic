@@ -162,8 +162,6 @@
         }
 
         #endregion
-
-        private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.ComboBox cmbBaud;
         private System.Windows.Forms.Label label1;
@@ -174,6 +172,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.TextBox txtboxReceive;
         private System.Windows.Forms.Label label3;
+        public System.IO.Ports.SerialPort serialPort1;
     }
 }
 

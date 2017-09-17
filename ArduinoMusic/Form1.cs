@@ -7,6 +7,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,6 +19,7 @@ namespace ArduinoMusic
         string[] ports;
         public delegate void AddDataDelegate(string serialinput);
         public AddDataDelegate SerialDelegate;
+        SerialClass MySerialPort = new SerialClass();
 
         public Form1()
         {
@@ -51,7 +53,10 @@ namespace ArduinoMusic
         {
             if (HexBytes != null)
             {
-                serialPort1.Write(HexBytes, 0, HexBytes.Length);
+                //serialPort1.Write(HexBytes, 0, HexBytes.Length);
+                Thread WriteThread = new Thread(() => MySerialPort.SerialWrite(HexBytes));
+                WriteThread.Start();
+                //oSerialClass.SerialWrite(HexBytes);
             }
         }
 
@@ -62,9 +67,12 @@ namespace ArduinoMusic
                 if (ports.Length != 0)
                 {
                     btnOpen.Enabled = false;
+                    MySerialPort.InitializeSerialPort(cmbPorts.Text, Convert.ToInt32(cmbBaud.Text));
+                    /*
                     serialPort1.PortName = cmbPorts.Text;
                     serialPort1.BaudRate = Convert.ToInt32(cmbBaud.Text);
                     serialPort1.Open();
+                    */
                     btnSend.Enabled = true;
                     btnClose.Enabled = true;
                 }
@@ -72,15 +80,6 @@ namespace ArduinoMusic
             catch (Exception)
             {
                 throw;
-            }
-        }
-
-        private void btnReceive_Click(object sender, EventArgs e)
-        {
-            if (serialPort1.IsOpen == true)
-            {
-                string msg = serialPort1.ReadExisting();
-                MessageBox.Show(msg);
             }
         }
 
@@ -109,25 +108,54 @@ namespace ArduinoMusic
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (serialPort1.IsOpen == true)
+            if (MySerialPort.PortStatus() == true)
             {
-                serialPort1.Close();
+                MySerialPort.ClosePort();
             }
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            serialPort1.Close();
+            MySerialPort.ClosePort();
             btnClose.Enabled = false;
             btnSend.Enabled = false;
             btnOpen.Enabled = true;
         }
-
+        
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort sp = (SerialPort)sender;
             string s = sp.ReadExisting();
             txtboxReceive.Invoke(SerialDelegate, new Object[] { s });
+        }
+    }
+
+    public class SerialClass
+    {
+        SerialPort ComPort = new SerialPort();
+        //Form1 MainForm = new Form1();
+        public void beta()
+        {
+            MessageBox.Show("Hello");
+        }
+
+        public void InitializeSerialPort(string portname, int baudrate)
+        {
+            ComPort.PortName = portname;
+            ComPort.BaudRate = baudrate;
+            ComPort.Open();
+        }
+        public bool PortStatus()
+        {
+            return ComPort.IsOpen;
+        }
+        public void ClosePort()
+        {
+            ComPort.Close();
+        }
+        public void SerialWrite(byte[] Audio)
+        {
+            ComPort.Write(Audio, 0, Audio.Length);
         }
     }
 }
